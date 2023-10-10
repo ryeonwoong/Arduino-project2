@@ -1,14 +1,11 @@
 # 아두이노 코드
-
-[Uploading s#include <SoftwareSerial.h>
-
+```
+#include <SoftwareSerial.h>
 SoftwareSerial bluetooth(2, 3); // RX, TX (2번 핀은 아두이노의 TX, 3번 핀은 아두이노의 RX)
-
 void setup() {
   bluetooth.begin(9600); // Bluetooth 모듈을 9600bps 속도로 초기화
   pinMode(4, INPUT); // 스위치를 4번 핀에 연결
 }
-
 void loop() {
   if (digitalRead(4) == HIGH) {
     bluetooth.write("PINK"); // 스위치가 눌렸을 때 스마트폰에 "PINK" 전송
@@ -17,7 +14,7 @@ void loop() {
   }
   delay(100); // 잠시 대기
 }
-ketch_oct10a.ino…]()
+```
 
 
 # 프로세싱 코드
