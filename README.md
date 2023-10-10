@@ -1,63 +1,28 @@
 # 아두이노 코드
 
-#include <SoftwareSerial.h>
+[Uploading s#include <SoftwareSerial.h>
 
-SoftwareSerial bluetooth(2, 3); // 아두이노의 2번 핀(RX)과 3번 핀(TX)을 블루투스 모듈과 연결
-
-int ledPin = 13;
-int buzzerPin = 8; // 부저 핀
-char command; // 스마트폰에서 전달된 명령을 저장할 변수
+SoftwareSerial bluetooth(2, 3); // RX, TX (2번 핀은 아두이노의 TX, 3번 핀은 아두이노의 RX)
 
 void setup() {
-  pinMode(ledPin, OUTPUT);
-  pinMode(buzzerPin, OUTPUT);
-  Serial.begin(9600);
-  bluetooth.begin(9600);
+  bluetooth.begin(9600); // Bluetooth 모듈을 9600bps 속도로 초기화
+  pinMode(4, INPUT); // 스위치를 4번 핀에 연결
 }
 
 void loop() {
-  if (bluetooth.available() > 0) {
-    command = bluetooth.read(); // 블루투스 모듈로부터 명령을 읽음
-
-    // 스마트폰에서 [On]을 보내면 LED를 켬
-    if (command == '1') {
-      digitalWrite(ledPin, HIGH);
-    }
-    // 스마트폰에서 [Off]을 보내면 LED를 끔
-    else if (command == '0') {
-      digitalWrite(ledPin, LOW);
-    }
-    // 스마트폰에서 [Song]을 보내면 음악을 연주
-    else if (command == '2') {
-      playSong();
-    }
+  if (digitalRead(4) == HIGH) {
+    bluetooth.write("PINK"); // 스위치가 눌렸을 때 스마트폰에 "PINK" 전송
+  } else {
+    bluetooth.write("BLUE"); // 스위치가 떼졌을 때 스마트폰에 "BLUE" 전송
   }
+  delay(100); // 잠시 대기
 }
+ketch_oct10a.ino…]()
 
-void playSong() {
-  // "도도솔솔라라솔" 노래를 연주하는 코드
-  int melody[] = {NOTE_C4, NOTE_C4, NOTE_D4, NOTE_E4, NOTE_E4, NOTE_D4, NOTE_C4, NOTE_C4,
-                  NOTE_E4, NOTE_E4, NOTE_F4, NOTE_G4, NOTE_G4, NOTE_F4, NOTE_E4,
-                  NOTE_D4, NOTE_C4, NOTE_C4, NOTE_G4, NOTE_G4, NOTE_A4, NOTE_G4,
-                  NOTE_F4, NOTE_E4, NOTE_D4, NOTE_E4, NOTE_F4, NOTE_C4, NOTE_C4,
-                  NOTE_G4, NOTE_G4, NOTE_A4, NOTE_G4, NOTE_F4, NOTE_E4, NOTE_D4,
-                  NOTE_C4, NOTE_C4};
-  int noteDuration = 500;
-  
-  for (int i = 0; i < sizeof(melody) / sizeof(melody[0]); i++) {
-    if (melody[i] == 0) {
-      delay(noteDuration);
-    } else {
-      tone(buzzerPin, melody[i], noteDuration);
-      delay(noteDuration);
-      noTone(buzzerPin);
-    }
-  }
-}
 
 # 프로세싱 코드
 
-import processing.serial.*;
+[Uploading sketch_23101import processing.serial.*;
 import processing.net.*;
 
 Serial myPort; // 시리얼 통신을 위한 객체
@@ -106,13 +71,15 @@ void sendDataToArduino(char data) {
     myPort.write(data); // 아두이노로 데이터 전송
   }
 }
+0a.pde…]()
+
 
 # 설명
 위와같은 아두이노 코드와 프로세싱 코드를 작성하고 App inventor에서 디자인한후 실행시키면 스마트폰앱에서 ON버튼을 눌렀을시 아두이노의 13번 LED가 켜지고 OFF 버튼을 누르면 13번 LED가 꺼지는 작동이 나타난다. 그리고 SONG 버튼을 누르면 "도도솔솔라라솔"이 연주되는 프로그램이다.
 
 # 아두이노 코드
 
-#include <SoftwareSerial.h>
+[Uploading s#include <SoftwareSerial.h>
 
 SoftwareSerial bluetooth(2, 3); // RX, TX (2번 핀은 아두이노의 TX, 3번 핀은 아두이노의 RX)
 
@@ -129,10 +96,12 @@ void loop() {
   }
   delay(100); // 잠시 대기
 }
+ketch_oct20a.ino…]()
+
 
 # 프로세싱 코드
 
-import processing.net.Server;
+[Uploading sketch_import processing.net.Server;
 import processing.net.Client;
 
 Server server; // 서버 객체
@@ -174,6 +143,7 @@ void keyPressed() {
     background(255); // 'c' 키를 누르면 배경색을 다시 하얀색으로 변경
   }
 }
+231010b.pde…]()
 
 # 설명
 위와같은 아두이노코드와 프로세싱 코드를 실행시키면 아두이노에서 스위치를 붙이면 스마트폰에서 0을받으면서 분홍색화면이 나타나고, 스위치를 떼면 스마트폰에서 1을 받으면서 화면이 하늘색으로 변하는 프로그램이다. c키를 누르게되면 스마트폰화면이 원상복구되는 코드도 집어넣었다.
