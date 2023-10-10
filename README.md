@@ -18,8 +18,8 @@ void loop() {
 
 
 # 프로세싱 코드
-
-[Uploading sketch_23101import processing.serial.*;
+```
+import processing.serial.*;
 import processing.net.*;
 
 Serial myPort; // 시리얼 통신을 위한 객체
@@ -68,15 +68,15 @@ void sendDataToArduino(char data) {
     myPort.write(data); // 아두이노로 데이터 전송
   }
 }
-0a.pde…]()
+```
 
 
 # 설명
 위와같은 아두이노 코드와 프로세싱 코드를 작성하고 App inventor에서 디자인한후 실행시키면 스마트폰앱에서 ON버튼을 눌렀을시 아두이노의 13번 LED가 켜지고 OFF 버튼을 누르면 13번 LED가 꺼지는 작동이 나타난다. 그리고 SONG 버튼을 누르면 "도도솔솔라라솔"이 연주되는 프로그램이다.
 
 # 아두이노 코드
-
-[Uploading s#include <SoftwareSerial.h>
+```
+#include <SoftwareSerial.h>
 
 SoftwareSerial bluetooth(2, 3); // RX, TX (2번 핀은 아두이노의 TX, 3번 핀은 아두이노의 RX)
 
@@ -93,12 +93,11 @@ void loop() {
   }
   delay(100); // 잠시 대기
 }
-ketch_oct20a.ino…]()
-
+```
 
 # 프로세싱 코드
-
-[Uploading sketch_import processing.net.Server;
+```
+import processing.net.Server;
 import processing.net.Client;
 
 Server server; // 서버 객체
@@ -140,7 +139,7 @@ void keyPressed() {
     background(255); // 'c' 키를 누르면 배경색을 다시 하얀색으로 변경
   }
 }
-231010b.pde…]()
+```
 
 # 설명
 위와같은 아두이노코드와 프로세싱 코드를 실행시키면 아두이노에서 스위치를 붙이면 스마트폰에서 0을받으면서 분홍색화면이 나타나고, 스위치를 떼면 스마트폰에서 1을 받으면서 화면이 하늘색으로 변하는 프로그램이다. c키를 누르게되면 스마트폰화면이 원상복구되는 코드도 집어넣었다.
